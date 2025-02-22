@@ -1,0 +1,355 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --risk-red: #8B0000;
+  --risk-black: #1A1A1A;
+  --risk-gold: #D4AF37;
+  --risk-parchment: #F5E6D3;
+  --risk-army-green: #4B5320;
+  --risk-territory: #2B1810;
+  --risk-blue: #0066cc;
+}
+
+body {
+  background-color: #f5f5f5;
+  color: var(--risk-territory);
+  background-image: 
+    linear-gradient(rgba(0, 102, 204, 0.1), rgba(0, 102, 204, 0.1)),
+    linear-gradient(rgba(245, 245, 245, 0.96), rgba(245, 245, 245, 0.96)),
+    url('/jack_playing_card.jpg');
+  background-size: 400px, cover, cover;
+  background-position: center;
+  background-repeat: repeat, no-repeat, no-repeat;
+  background-blend-mode: soft-light, normal, normal;
+  min-height: 100vh;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  font-family: var(--font-game);
+  position: relative;
+}
+
+/* Blue-tinted pattern overlay - made more subtle */
+body::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url('/ace_of_spade.jpg');
+  background-size: 200px;
+  background-repeat: repeat;
+  opacity: 0.04; /* reduced from 0.08 */
+  mix-blend-mode: color-burn;
+  pointer-events: none;
+  background-color: var(--risk-blue);
+}
+
+body::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border: 3px solid var(--risk-gold);
+  pointer-events: none;
+  z-index: 2;
+}
+
+@layer components {
+  .risk-card {
+    @apply bg-white/95 p-8 rounded-lg border-4 border-double border-[#0066cc] 
+           transform transition-all duration-300 hover:scale-[1.02] shadow-lg
+           relative overflow-hidden;
+    background-image: 
+      linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)),
+      url('/jack_playing_card.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 120%;
+    background-blend-mode: soft-light;
+    transition: background-size 0.3s ease;
+    filter: hue-rotate(190deg) saturate(0.8);
+  }
+
+  .risk-card:hover {
+    background-size: 130%;
+    background-image: 
+      linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)),
+      url('/jack_playing_card.jpg');
+  }
+
+  .risk-button {
+    @apply bg-[#8B0000] text-[#D4AF37] px-10 py-4 rounded-lg font-bold text-xl
+           hover:bg-[#660000] transition-all duration-300 shadow-lg 
+           border-2 border-[#D4AF37] uppercase tracking-wider
+           relative overflow-hidden
+           before:absolute before:inset-0 before:bg-[#D4AF37]/10
+           before:translate-x-[-100%] hover:before:translate-x-0
+           before:transition-transform before:duration-300
+           hover:shadow-[0_0_25px_rgba(212,175,55,0.3)]
+           active:transform active:scale-95
+           after:absolute after:inset-[-2px] after:border after:border-[#D4AF37]/50
+           after:rounded-lg after:transition-all after:duration-300
+           hover:after:inset-[-4px];
+  }
+
+  .risk-title {
+    @apply font-bold text-center text-[#0066cc] uppercase
+           text-6xl
+           relative inline-block
+           tracking-[.25em]
+           after:content-[''] after:absolute after:bottom-[-10px] after:left-0 
+           after:w-full after:h-[3px] after:bg-[#D4AF37]
+           after:transform after:origin-left
+           after:transition-transform after:duration-300;
+    text-shadow: 
+      2px 2px 0px rgba(0, 102, 204, 0.2),
+      -1px -1px 0px rgba(212, 175, 55, 0.3);
+  }
+
+  .risk-title::before {
+    display: none;
+  }
+
+  .risk-card h2 {
+    @apply text-xl font-bold mb-3 flex items-center text-[#0066cc];
+  }
+
+  .risk-card p {
+    @apply text-sm
+           leading-relaxed;
+  }
+
+  .risk-card ul {
+    @apply text-sm
+           leading-relaxed;
+  }
+
+  .risk-card ul li {
+    @apply mb-2;
+  }
+
+  .territory-card {
+    @apply p-8 rounded-lg text-white shadow-xl border-2 border-[#D4AF37]
+           relative overflow-hidden backdrop-blur-sm;
+    background-image: 
+      linear-gradient(to right, 
+        rgba(0, 102, 204, 0.85), 
+        rgba(0, 102, 204, 0.7)
+      ),
+      url('/ace_of_spade.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    transition: transform 0.3s ease;
+  }
+
+  .territory-card:hover {
+    transform: translateY(-4px);
+    background-image: 
+      linear-gradient(to right, 
+        rgba(0, 0, 0, 0.75), 
+        rgba(0, 0, 0, 0.6)
+      ),
+      url('/ace_of_spades.jpg');
+  }
+
+  .territory-card h3 {
+    @apply text-lg
+           font-bold flex items-center mb-4;
+  }
+
+  .territory-card p {
+    @apply text-sm
+           flex items-center;
+  }
+
+  .infantry { 
+    @apply bg-gradient-to-br from-[#8B0000] to-[#660000] bg-opacity-90;
+  }
+  
+  .cavalry { 
+    @apply bg-gradient-to-br from-[#4B5320] to-[#3A4219] bg-opacity-90;
+  }
+
+  .military-border {
+    @apply border-4 border-double border-[#D4AF37]
+           relative before:absolute before:inset-[-4px]
+           before:border-2 before:border-[#0066cc]
+           after:absolute after:inset-[-6px]
+           after:border after:border-[#D4AF37]/20;
+  }
+
+  .medal {
+    @apply absolute -top-3 -right-3 w-16 h-16
+           bg-gradient-to-br from-[#D4AF37] to-[#B38F1D]
+           rounded-full shadow-xl
+           flex items-center justify-center
+           border-2 border-[#0066cc]
+           transform rotate-12
+           before:absolute before:inset-1
+           before:border before:border-[#0066cc]/20
+           before:rounded-full;
+  }
+
+  .shine {
+    @apply absolute inset-0 
+           bg-gradient-to-r from-transparent via-white/5 to-transparent
+           transform translate-x-[-200%]
+           animate-shine;
+  }
+
+  .dice-button {
+    @apply bg-[#8B0000] text-[#D4AF37] px-14 py-4 rounded-lg font-bold text-lg
+           hover:bg-[#660000] transition-all duration-300 shadow-lg 
+           border-2 border-[#D4AF37] uppercase tracking-wider relative
+           overflow-visible;
+  }
+
+  .dice-button span {
+    @apply relative -top-[2px];
+  }
+
+  .dice {
+    @apply absolute left-3 top-1/2 -translate-y-[50%] w-10 h-10
+           opacity-0 transition-all duration-300
+           transform;
+  }
+
+  .group:hover .dice {
+    @apply opacity-100 rotate-[360deg];
+  }
+
+  .dice-face {
+    @apply absolute inset-0 bg-[#D4AF37] rounded
+           flex items-center justify-center
+           border border-[#0066cc]
+           transition-transform duration-500;
+    transform-style: preserve-3d;
+    backface-visibility: hidden;
+  }
+
+  .dice-dot {
+    @apply w-1.5 h-1.5 rounded-full bg-[#0066cc];
+  }
+
+  /* Corner decorations with playing cards */
+  .corner-decoration::after {
+    content: '';
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    background-image: url('/ace_of_spade.jpg');
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    filter: brightness(0.9) contrast(1.1) sepia(1) hue-rotate(190deg) saturate(3);
+    opacity: 0.85;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    border: 2px solid var(--risk-blue);
+    border-radius: 4px;
+  }
+
+  .corner-decoration:hover::after {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+
+  .corner-decoration-tl::after { transform: rotate(-15deg); top: -20px; left: -20px; }
+  .corner-decoration-tr::after { transform: rotate(15deg); top: -20px; right: -20px; }
+  .corner-decoration-bl::after { transform: rotate(-195deg); bottom: -20px; left: -20px; }
+  .corner-decoration-br::after { transform: rotate(195deg); bottom: -20px; right: -20px; }
+
+  /* Military border with more pronounced card background */
+  .risk-card.military-border {
+    background-image: 
+      linear-gradient(rgba(255, 255, 255, 0.88), rgba(255, 255, 255, 0.88)),
+      url('/jack_playing_card.jpg');
+    background-blend-mode: color;
+    background-size: 130%;
+    background-position: center;
+    transition: background-size 0.3s ease;
+    filter: hue-rotate(210deg);
+  }
+
+  .risk-card.military-border:hover {
+    background-size: 140%;
+    background-image: 
+      linear-gradient(rgba(255, 255, 255, 0.82), rgba(255, 255, 255, 0.82)),
+      url('/jack_playing_card.jpg');
+  }
+}
+
+/* Custom animations */
+@keyframes march {
+  0% { background-position: 0 0; }
+  100% { background-position: 50px 50px; }
+}
+
+@keyframes shine {
+  0% { transform: translateX(-200%); }
+  100% { transform: translateX(200%); }
+}
+
+.animate-march {
+  animation: march 30s linear infinite;
+}
+
+.animate-shine {
+  animation: shine 3s infinite;
+}
+
+@keyframes rollDice {
+  0% { transform: rotateX(0) rotateY(0); }
+  25% { transform: rotateX(180deg) rotateY(90deg); }
+  50% { transform: rotateX(360deg) rotateY(180deg); }
+  75% { transform: rotateX(540deg) rotateY(270deg); }
+  100% { transform: rotateX(720deg) rotateY(360deg); }
+}
+
+.animate-roll {
+  animation: rollDice 2s infinite linear;
+}
+
+/* Decorative elements */
+.corner-decoration {
+  @apply absolute w-12 h-12 border-2 border-[#D4AF37]
+         before:absolute before:w-2 before:h-2 
+         before:bg-[#D4AF37] before:rounded-full;
+}
+
+.corner-decoration-tl {
+  @apply top-0 left-0 border-r-0 border-b-0
+         before:top-0 before:left-0;
+}
+
+.corner-decoration-tr {
+  @apply top-0 right-0 border-l-0 border-b-0
+         before:top-0 before:right-0;
+}
+
+.corner-decoration-bl {
+  @apply bottom-0 left-0 border-r-0 border-t-0
+         before:bottom-0 before:left-0;
+}
+
+.corner-decoration-br {
+  @apply bottom-0 right-0 border-l-0 border-t-0
+         before:bottom-0 before:right-0;
+}
+
+/* Update the weekend schedule heading */
+section h2 {
+  @apply text-[#0066cc] !important;
+}
+
+/* Update the header text */
+header p {
+  @apply text-xl text-[#0066cc]/90 font-bold tracking-wide mt-8;
+}
+
+/* Keep the date text as is since it's already blue */
+header p.date {
+  @apply text-2xl text-[#0066cc] mt-10 font-bold tracking-wide;
+} 
