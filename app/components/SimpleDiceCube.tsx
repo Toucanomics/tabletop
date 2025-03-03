@@ -14,7 +14,7 @@ interface FaceData {
 
 // Define the faces of the dice with their dot patterns and correct mapping
 const FACES: FaceData[] = [
-  { name: "Home", content: "TABLETOP", description: "The world's first board game hackathon", dots: 1, index: 0 },
+  { name: "Home", content: "TABLETOP", description: "NYC's first board game hackathon", dots: 1, index: 0 },
   { name: "Create", content: "CREATE", description: "Design & Demo innovative board games in 48 hours", dots: 2, index: 1 },
   { name: "Discover", content: "DISCOVER", description: "Access to premium materials and printing services", dots: 3, index: 4 }, // Top face
   { name: "Launch", content: "LAUNCH", description: "Win publishing partnerships and cash prizes", dots: 4, index: 5 }, // Bottom face
@@ -295,7 +295,7 @@ export default function SimpleDiceCube() {
 
   // Update the styles for mobile
   const faceStyle = {
-    transform: (transformValue) => `${transformValue}`,
+    transform: (transformValue: string) => `${transformValue}`,
     backgroundColor: isMobile ? 'rgba(229, 62, 62, 0.95)' : undefined // Less transparent
   };
 
@@ -338,7 +338,7 @@ export default function SimpleDiceCube() {
               {renderDots(1)}
               <div className="dice-content" style={contentStyle}>
                 <h2 className={`${isMobile ? 'text-xl' : 'text-2xl'} font-bold text-white mb-2`}>TABLETOP</h2>
-                <p className={`${isMobile ? 'text-xs' : 'text-sm'} text-white/90`}>The world's first board game hackathon</p>
+                <p className={`${isMobile ? 'text-xs' : 'text-sm'} text-white/90`}>NYC's first board game hackathon</p>
               </div>
             </div>
             
