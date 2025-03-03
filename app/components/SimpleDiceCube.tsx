@@ -3,8 +3,17 @@
 import Link from 'next/link';
 import React, { useState, useEffect, useRef } from 'react';
 
+// Define types for the FACES array items
+interface FaceData {
+  name: string;
+  content: string;
+  description: string;
+  dots: number;
+  index: number;
+}
+
 // Define the faces of the dice with their dot patterns and correct mapping
-const FACES = [
+const FACES: FaceData[] = [
   { name: "Home", content: "TABLETOP", description: "The world's first board game hackathon", dots: 1, index: 0 },
   { name: "Create", content: "CREATE", description: "Design & Demo innovative board games in 48 hours", dots: 2, index: 1 },
   { name: "Discover", content: "DISCOVER", description: "Access to premium materials and printing services", dots: 3, index: 4 }, // Top face
@@ -14,7 +23,7 @@ const FACES = [
 ];
 
 // Function to render dice dots based on the number
-const renderDots = (number) => {
+const renderDots = (number: number) => {
   switch(number) {
     case 1:
       return (
@@ -184,75 +193,73 @@ export default function SimpleDiceCube() {
   };
   
   // Mouse/touch event handlers for manual rotation
-  const handleMouseDown = (e) => {
+  const handleMouseDown = (e: React.MouseEvent | React.TouchEvent) => {
     if (isRotating) return;
+    
     setIsDragging(true);
-    setDragStart({ 
-      x: e.clientX || (e.touches && e.touches[0].clientX), 
-      y: e.clientY || (e.touches && e.touches[0].clientY)
-    });
+    
+    // Get the starting position
+    const clientX = 'touches' in e ? e.touches[0].clientX : e.clientX;
+    const clientY = 'touches' in e ? e.touches[0].clientY : e.clientY;
+    
+    setDragStart({ x: clientX, y: clientY });
+    setManualRotation({ x: 0, y: 0 });
   };
   
-  const handleMouseMove = (e) => {
+  const handleMouseMove = (e: MouseEvent | TouchEvent) => {
     if (!isDragging || isRotating) return;
     
-    const clientX = e.clientX || (e.touches && e.touches[0].clientX);
-    const clientY = e.clientY || (e.touches && e.touches[0].clientY);
+    // Get the current position
+    const clientX = 'touches' in e ? e.touches[0].clientX : e.clientX;
+    const clientY = 'touches' in e ? e.touches[0].clientY : e.clientY;
     
-    if (clientX === undefined || clientY === undefined) return;
-    
+    // Calculate the delta
     const deltaX = clientX - dragStart.x;
     const deltaY = clientY - dragStart.y;
     
+    // Update manual rotation based on drag
     setManualRotation({
-      x: manualRotation.x - deltaY * 0.5,
-      y: manualRotation.y + deltaX * 0.5
+      x: deltaY * 0.01,
+      y: -deltaX * 0.01
     });
-    
-    setDragStart({ x: clientX, y: clientY });
   };
   
   const handleMouseUp = () => {
-    if (isDragging) {
-      // Determine which face is now most visible after manual rotation
-      const rotationX = manualRotation.x % 360;
-      const rotationY = manualRotation.y % 360;
+    if (!isDragging) return;
+    
+    // Determine which face is most visible
+    if (Math.abs(manualRotation.x) > 0.3 || Math.abs(manualRotation.y) > 0.3) {
+      // Find the closest face based on rotation
+      let newFace = currentFace;
       
-      // Only update the current face if the rotation is significant
-      if (Math.abs(rotationX) > 45 || Math.abs(rotationY) > 45) {
-        // Find the most visible face based on rotation angles
-        let newFace = currentFace;
-        
-        // Simplified face detection based on rotation angles
-        if (Math.abs(rotationX) > Math.abs(rotationY)) {
-          // Rotation is primarily around X axis
-          if (rotationX > 45) {
-            newFace = 5; // Bottom face
-          } else if (rotationX < -45) {
-            newFace = 4; // Top face
-          }
+      // Simplified face detection based on rotation angles
+      if (Math.abs(manualRotation.x) > Math.abs(manualRotation.y)) {
+        // Rotation is primarily around X axis
+        if (manualRotation.x > 0.3) {
+          newFace = 5; // Bottom face
+        } else if (manualRotation.x < -0.3) {
+          newFace = 4; // Top face
+        }
+      } else {
+        // Rotation is primarily around Y axis
+        if (manualRotation.y > 0.3) {
+          newFace = 3; // Left face
+        } else if (manualRotation.y < -0.3) {
+          newFace = 1; // Right face
+        } else if (Math.abs(manualRotation.y) > 0.6) {
+          newFace = 2; // Back face
         } else {
-          // Rotation is primarily around Y axis
-          if (rotationY > 45) {
-            newFace = 3; // Left face
-          } else if (rotationY < -45) {
-            newFace = 1; // Right face
-          } else if (Math.abs(rotationY) > 135) {
-            newFace = 2; // Back face
-          } else {
-            newFace = 0; // Front face
-          }
+          newFace = 0; // Front face
         }
-        
-        // Update current face if it changed
-        if (newFace !== currentFace) {
-          setCurrentFace(newFace);
-        }
+      }
+      
+      // Update current face if it changed
+      if (newFace !== currentFace) {
+        setCurrentFace(newFace);
       }
     }
     
     setIsDragging(false);
-    // Don't reset manualRotation here
   };
   
   // Add and remove event listeners
@@ -263,7 +270,7 @@ export default function SimpleDiceCube() {
     document.addEventListener('touchend', handleMouseUp);
     
     // Prevent page scrolling when interacting with the dice on mobile
-    const preventScroll = (e) => {
+    const preventScroll = (e: TouchEvent) => {
       if (isDragging) {
         e.preventDefault();
       }
