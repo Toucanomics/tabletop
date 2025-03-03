@@ -305,7 +305,7 @@ export default function SimpleDiceCube() {
   };
 
   return (
-    <div className={`min-h-screen w-full ${isMobile ? 'bg-gradient-to-b from-blue-50/70 to-white/70' : 'bg-gradient-to-b from-blue-50 to-white'} flex flex-col items-center justify-center py-8 px-4`}>
+    <div className={`min-h-screen w-full ${isMobile ? 'bg-gradient-to-b from-blue-50/30 to-white/20' : 'bg-gradient-to-b from-blue-50 to-white'} flex flex-col items-center justify-center py-8 px-4`}>
       {/* Dice cube container */}
       <div 
         ref={containerRef}
@@ -411,8 +411,8 @@ export default function SimpleDiceCube() {
         </div>
       </div>
 
-      {/* Navigation */}
-      <div className={`flex flex-wrap justify-center gap-2 p-3 bg-white/80 backdrop-blur-sm rounded-full shadow-md border border-red-600/20 ${isMobile ? 'max-w-full' : ''}`}>
+      {/* Navigation with more transparent background on mobile */}
+      <div className={`flex flex-wrap justify-center gap-2 p-3 ${isMobile ? 'bg-white/50' : 'bg-white/80'} backdrop-blur-sm rounded-full shadow-md border border-red-600/20 ${isMobile ? 'max-w-full' : ''}`}>
         {FACES.map((face, index) => (
           <button
             key={index}
