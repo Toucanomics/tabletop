@@ -6,8 +6,13 @@ import { Text, PerspectiveCamera, OrbitControls } from '@react-three/drei';
 import * as THREE from 'three';
 import { Group } from 'three';
 
+// Add proper typing for the Dice component props
+interface DiceProps {
+  currentFace: number;
+}
+
 // The dice cube component
-function Dice({ currentFace }) {
+function Dice({ currentFace }: DiceProps) {
   const cubeRef = useRef<Group>(null);
   
   // Target rotations for each face

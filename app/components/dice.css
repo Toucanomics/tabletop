@@ -96,7 +96,9 @@
   border: 1px solid rgba(255, 255, 255, 0.3);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   transform: translateZ(1px);
-  max-width: 85%;
+  max-width: 90%;
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 
 /* Dice dots container */
@@ -374,7 +376,7 @@
   
   .dice-content {
     padding: 0.8rem;
-    max-width: 90%;
+    max-width: 95%;
   }
   
   .dice-shadow {
