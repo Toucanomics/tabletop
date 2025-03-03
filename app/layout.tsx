@@ -1,3 +1,4 @@
+import React from 'react';
 import type { Metadata } from 'next'
 import { Rubik_Mono_One } from 'next/font/google'
 import { Righteous } from 'next/font/google'
@@ -12,7 +13,7 @@ const font = Rubik_Mono_One({
 })
 
 export const metadata: Metadata = {
-  title: 'NYC Board Game Hackathon',
+  title: 'TableTop - Board Game Hackathon',
   description: 'Join us for an exciting 48-hour board game creation challenge in New York City',
 }
 
