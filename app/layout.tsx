@@ -1,3 +1,4 @@
+import React from 'react';
 import type { Metadata } from 'next'
 import { Rubik_Mono_One } from 'next/font/google'
 import { Righteous } from 'next/font/google'

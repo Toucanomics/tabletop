@@ -201,14 +201,42 @@ body::before {
   }
 
   .dice-button {
-    @apply bg-[#8B0000] text-[#D4AF37] px-14 py-4 rounded-lg font-bold text-lg
-           hover:bg-[#660000] transition-all duration-300 shadow-lg 
-           border-2 border-[#D4AF37] uppercase tracking-wider relative
-           overflow-visible;
+    @apply bg-white text-[#0066cc] px-8 sm:px-10 md:px-14 py-3 md:py-4 
+           text-sm sm:text-base md:text-lg
+           border-2 border-[#0066cc] rounded-lg font-bold
+           uppercase tracking-wider
+           relative shadow-md
+           transition-all duration-300;
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+  }
+
+  .dice-button::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #0066cc;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease;
+    z-index: -1;
+  }
+
+  .dice-button:hover {
+    color: white;
+  }
+
+  .dice-button:hover::after {
+    transform: scaleX(1);
   }
 
   .dice-button span {
-    @apply relative -top-[2px];
+    position: relative;
+    z-index: 2;
   }
 
   .dice {
@@ -222,7 +250,7 @@ body::before {
   }
 
   .dice-face {
-    @apply absolute inset-0 bg-[#D4AF37] rounded
+    @apply absolute inset-0 bg-white rounded
            flex items-center justify-center
            border border-[#0066cc]
            transition-transform duration-500;
@@ -352,4 +380,126 @@ header p {
 /* Keep the date text as is since it's already blue */
 header p.date {
   @apply text-2xl text-[#0066cc] mt-10 font-bold tracking-wide;
+}
+
+/* Add these responsive adjustments to your globals.css */
+
+/* Mobile-first adjustments */
+.risk-title {
+  @apply text-4xl md:text-5xl lg:text-6xl tracking-[.15em] md:tracking-[.25em];
+  text-shadow: 
+    1px 1px 0px rgba(0, 102, 204, 0.2),
+    -1px -1px 0px rgba(212, 175, 55, 0.3);
+}
+
+header p {
+  @apply text-base sm:text-lg md:text-xl;
+}
+
+.risk-card {
+  @apply p-4 sm:p-6 md:p-8;
+}
+
+.risk-card h2 {
+  @apply text-xl sm:text-2xl md:text-3xl mb-2 md:mb-4;
+}
+
+.risk-card p, .risk-card ul {
+  @apply text-xs sm:text-sm;
+}
+
+.territory-card h3 {
+  @apply text-base sm:text-lg md:text-2xl;
+}
+
+.territory-card p {
+  @apply text-xs sm:text-sm md:text-base flex-wrap;
+}
+
+.dice-button {
+  @apply px-8 sm:px-10 md:px-14 py-3 md:py-4 text-sm sm:text-base md:text-lg;
+}
+
+/* Adjust corner decorations for mobile */
+.corner-decoration {
+  @apply w-8 h-8 md:w-12 md:h-12;
+}
+
+.corner-decoration::after {
+  width: 30px;
+  height: 30px;
+  @apply md:w-[50px] md:h-[50px];
+}
+
+/* Adjust grid spacing */
+.grid {
+  @apply gap-4 md:gap-8;
+}
+
+/* Make schedule more readable on mobile */
+.territory-card .space-y-4 {
+  margin-top: 0.5rem; /* 8px */
+  margin-bottom: 0.5rem; /* 8px */
+}
+
+@media (min-width: 768px) {
+  .territory-card .space-y-4 {
+    margin-top: 1rem; /* 16px */
+    margin-bottom: 1rem; /* 16px */
+  }
+  
+  .territory-card .space-y-4 > * + * {
+    margin-top: 1rem; /* 16px */
+  }
+}
+
+/* Adjust emoji sizes on mobile */
+.territory-card span.mr-3, .risk-card span.mr-3 {
+  @apply text-sm md:text-base;
+}
+
+/* Improve button positioning on mobile */
+.dice-button span {
+  @apply translate-x-2 md:translate-x-4;
+}
+
+/* Adjust dice size and position for mobile */
+.dice {
+  @apply w-6 h-6 md:w-10 md:h-10 left-2 md:left-3;
+}
+
+/* Add responsive padding to main container */
+main {
+  @apply p-4 sm:p-6 md:p-8;
+}
+
+/* Adjust header spacing */
+header {
+  @apply mb-8 md:mb-16 mt-6 md:mt-10;
+}
+
+/* Make cards stack better on mobile */
+@media (max-width: 640px) {
+  .risk-card ul.space-y-3 {
+    @apply space-y-1;
+  }
+  
+  .risk-card ul li {
+    @apply mb-1;
+  }
+  
+  .territory-card p {
+    @apply mb-1;
+  }
+}
+
+/* Improve text readability on mobile */
+@media (max-width: 480px) {
+  .risk-title {
+    @apply tracking-[.1em];
+  }
+  
+  .territory-card p span.mr-3 {
+    @apply mr-2;
+  }
 } 
