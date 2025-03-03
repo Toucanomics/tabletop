@@ -305,6 +305,22 @@
 
 /* Mobile-specific styles */
 @media (max-width: 767px) {
+  /* Add a transparent overlay to the body */
+  body {
+    background-color: rgba(255, 255, 255, 0.3);
+  }
+  
+  /* Make the background gradient more transparent */
+  .bg-gradient-to-b {
+    --tw-gradient-from: rgba(239, 246, 255, 0.3) !important;
+    --tw-gradient-to: rgba(255, 255, 255, 0.2) !important;
+  }
+  
+  /* Make the dice shadow more subtle */
+  .dice-shadow {
+    opacity: 0.2;
+  }
+  
   .dice-face {
     width: 260px;
     height: 260px;
@@ -391,10 +407,6 @@
     width: 220px;
     height: 30px;
     bottom: -40px;
-  }
-  
-  .bg-gradient-to-b {
-    background-opacity: 0.7;
   }
 }
 
