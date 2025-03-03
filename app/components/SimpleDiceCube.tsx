@@ -293,8 +293,19 @@ export default function SimpleDiceCube() {
     return activeButton >= 0 ? activeButton : currentFace;
   };
 
+  // Update the styles for mobile
+  const faceStyle = {
+    transform: (transformValue) => `${transformValue}`,
+    backgroundColor: isMobile ? 'rgba(229, 62, 62, 0.95)' : undefined // Less transparent
+  };
+
+  const contentStyle = {
+    backgroundColor: isMobile ? 'rgba(229, 62, 62, 0.9)' : undefined, // More opaque
+    border: isMobile ? '1px solid rgba(255, 255, 255, 0.4)' : undefined // More visible border
+  };
+
   return (
-    <div className="min-h-screen w-full bg-gradient-to-b from-blue-50 to-white flex flex-col items-center justify-center py-8 px-4">
+    <div className={`min-h-screen w-full ${isMobile ? 'bg-gradient-to-b from-blue-50/70 to-white/70' : 'bg-gradient-to-b from-blue-50 to-white'} flex flex-col items-center justify-center py-8 px-4`}>
       {/* Dice cube container */}
       <div 
         ref={containerRef}
@@ -317,9 +328,15 @@ export default function SimpleDiceCube() {
             }}
           >
             {/* Front face - 1 */}
-            <div className="dice-face dice-red" style={{ transform: `translateZ(${cubeSize}px)` }}>
+            <div 
+              className="dice-face dice-red" 
+              style={{ 
+                transform: faceStyle.transform(`translateZ(${cubeSize}px)`),
+                backgroundColor: faceStyle.backgroundColor
+              }}
+            >
               {renderDots(1)}
-              <div className="dice-content">
+              <div className="dice-content" style={contentStyle}>
                 <h2 className={`${isMobile ? 'text-xl' : 'text-2xl'} font-bold text-white mb-2`}>TABLETOP</h2>
                 <p className={`${isMobile ? 'text-xs' : 'text-sm'} text-white/90`}>The world's first board game hackathon</p>
               </div>
