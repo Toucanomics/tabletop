@@ -305,23 +305,7 @@
 
 /* Mobile-specific styles */
 @media (max-width: 767px) {
-  /* Keep the background transparent */
-  body {
-    background-color: rgba(255, 255, 255, 0.3);
-  }
-  
-  /* Make the background gradient transparent */
-  .bg-gradient-to-b {
-    --tw-gradient-from: rgba(239, 246, 255, 0.3) !important;
-    --tw-gradient-to: rgba(255, 255, 255, 0.2) !important;
-  }
-  
-  /* Make the dice shadow more subtle */
-  .dice-shadow {
-    opacity: 0.2;
-  }
-  
-  /* Make the dice face fully opaque */
+  /* Make the dice face completely solid */
   .dice-face {
     width: 260px;
     height: 260px;
@@ -329,26 +313,36 @@
     margin-top: -130px;
     border-radius: 8px;
     border-width: 2px;
-    background-color: #e53e3e; /* Fully opaque */
-    opacity: 1;
+    background-color: #e53e3e !important; /* Force solid color */
+    opacity: 1 !important; /* Force full opacity */
+    box-shadow: 
+      inset 0 0 40px rgba(0, 0, 0, 0.4),
+      0 10px 30px rgba(0, 0, 0, 0.4) !important; /* Stronger shadow */
   }
   
-  /* Make the dice content fully opaque */
+  /* Remove any transparency effects */
+  .dice-face::before,
+  .dice-face::after {
+    opacity: 0.8 !important; /* Make these more visible */
+  }
+  
+  /* Make the dice content completely solid */
   .dice-content {
-    background-color: rgba(229, 62, 62, 1); /* Fully opaque */
+    background-color: #e53e3e !important; /* Force solid color */
     padding: 0.8rem;
     max-width: 95%;
-    border: 1px solid rgba(255, 255, 255, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.6) !important; /* More visible border */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25) !important; /* Stronger shadow */
   }
   
-  /* Make the dice dots fully opaque */
+  /* Make the dice dots completely solid */
   .dice-dot {
     width: 30px;
     height: 30px;
-    background-color: #ffffff; /* Fully opaque */
+    background-color: #ffffff !important; /* Force solid color */
     box-shadow: 
-      inset 0 0 10px rgba(0, 0, 0, 0.3),
-      0 2px 4px rgba(0, 0, 0, 0.2);
+      inset 0 0 10px rgba(0, 0, 0, 0.4),
+      0 2px 4px rgba(0, 0, 0, 0.3) !important; /* Stronger shadow */
   }
 }
 
@@ -362,11 +356,11 @@
     border-radius: 10px;
     padding: 1rem;
     border-width: 6px;
-    background-color: #e53e3e; /* Fully opaque */
+    background-color: #e53e3e !important; /* Force solid color */
   }
   
   .dice-content {
     padding: 0.6rem;
-    background-color: rgba(229, 62, 62, 1); /* Fully opaque */
+    background-color: #e53e3e !important; /* Force solid color */
   }
 } 
