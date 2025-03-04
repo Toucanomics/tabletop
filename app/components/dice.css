@@ -305,7 +305,18 @@
 
 /* Mobile-specific styles */
 @media (max-width: 767px) {
-  /* Make the dice face completely solid */
+  /* Remove background transparency settings */
+  body {
+    background-color: white;
+  }
+  
+  /* Remove gradient transparency */
+  .bg-gradient-to-b {
+    --tw-gradient-from: white !important;
+    --tw-gradient-to: white !important;
+  }
+  
+  /* Rest of the mobile styles */
   .dice-face {
     width: 260px;
     height: 260px;
