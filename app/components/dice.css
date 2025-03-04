@@ -305,12 +305,12 @@
 
 /* Mobile-specific styles */
 @media (max-width: 767px) {
-  /* Add a transparent overlay to the body */
+  /* Keep the background transparent */
   body {
     background-color: rgba(255, 255, 255, 0.3);
   }
   
-  /* Make the background gradient more transparent */
+  /* Make the background gradient transparent */
   .bg-gradient-to-b {
     --tw-gradient-from: rgba(239, 246, 255, 0.3) !important;
     --tw-gradient-to: rgba(255, 255, 255, 0.2) !important;
@@ -321,6 +321,7 @@
     opacity: 0.2;
   }
   
+  /* Make the dice face fully opaque */
   .dice-face {
     width: 260px;
     height: 260px;
@@ -328,85 +329,26 @@
     margin-top: -130px;
     border-radius: 8px;
     border-width: 2px;
-    background-color: rgba(229, 62, 62, 0.95);
+    background-color: #e53e3e; /* Fully opaque */
+    opacity: 1;
   }
   
-  .dice-face::before,
-  .dice-face::after {
-    border-radius: 6px;
-  }
-  
-  .dice-edge {
-    width: 260px;
-    height: 260px;
-    margin-left: -130px;
-    margin-top: -130px;
-    border-radius: 8px;
-    border-width: 2px;
-    opacity: 0.05;
-  }
-  
-  /* Update side panels for mobile */
-  .dice-side-top, .dice-side-bottom, .dice-side-front, .dice-side-back {
-    width: 260px;
-    height: 15px;
-    margin-left: -130px;
-  }
-  
-  .dice-side-left, .dice-side-right {
-    width: 15px;
-    height: 260px;
-    margin-top: -130px;
-  }
-  
-  .dice-side-top {
-    margin-top: -138px;
-  }
-  
-  .dice-side-bottom {
-    margin-top: 123px;
-  }
-  
-  .dice-side-left {
-    margin-left: -138px;
-  }
-  
-  .dice-side-right {
-    margin-left: 123px;
-  }
-  
-  .dice-side-front, .dice-side-back {
-    margin-top: -130px;
-  }
-  
-  .dice-side-front {
-    transform: translateZ(130px) rotateX(90deg);
-  }
-  
-  .dice-side-back {
-    transform: translateZ(-130px) rotateX(90deg);
-  }
-  
-  .dice-dot {
-    width: 30px;
-    height: 30px;
-    background-color: rgba(255, 255, 255, 0.95);
-    box-shadow: 
-      inset 0 0 10px rgba(0, 0, 0, 0.3),
-      0 2px 4px rgba(0, 0, 0, 0.2);
-  }
-  
+  /* Make the dice content fully opaque */
   .dice-content {
-    background-color: rgba(229, 62, 62, 0.9);
+    background-color: rgba(229, 62, 62, 1); /* Fully opaque */
     padding: 0.8rem;
     max-width: 95%;
     border: 1px solid rgba(255, 255, 255, 0.4);
   }
   
-  .dice-shadow {
-    width: 220px;
+  /* Make the dice dots fully opaque */
+  .dice-dot {
+    width: 30px;
     height: 30px;
-    bottom: -40px;
+    background-color: #ffffff; /* Fully opaque */
+    box-shadow: 
+      inset 0 0 10px rgba(0, 0, 0, 0.3),
+      0 2px 4px rgba(0, 0, 0, 0.2);
   }
 }
 
@@ -420,36 +362,11 @@
     border-radius: 10px;
     padding: 1rem;
     border-width: 6px;
-    background-color: rgba(229, 62, 62, 0.95);
-  }
-  
-  .dice-face::before,
-  .dice-face::after {
-    border-radius: 8px;
-  }
-  
-  .dice-edge {
-    width: 220px;
-    height: 220px;
-    margin-left: -110px;
-    margin-top: -110px;
-    border-radius: 10px;
-    opacity: 0.05;
-  }
-  
-  .dice-dot {
-    width: 20px;
-    height: 20px;
+    background-color: #e53e3e; /* Fully opaque */
   }
   
   .dice-content {
     padding: 0.6rem;
-    background-color: rgba(229, 62, 62, 0.9);
-  }
-  
-  .dice-shadow {
-    width: 180px;
-    height: 25px;
-    bottom: -30px;
+    background-color: rgba(229, 62, 62, 1); /* Fully opaque */
   }
 } 

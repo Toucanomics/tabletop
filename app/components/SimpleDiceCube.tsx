@@ -293,14 +293,14 @@ export default function SimpleDiceCube() {
     return activeButton >= 0 ? activeButton : currentFace;
   };
 
-  // Update the styles for mobile
+  // Update the styles for mobile to be fully opaque
   const faceStyle = {
     transform: (transformValue: string) => `${transformValue}`,
-    backgroundColor: isMobile ? 'rgba(229, 62, 62, 0.95)' : undefined // Less transparent
+    backgroundColor: isMobile ? '#e53e3e' : undefined // Fully opaque
   };
 
   const contentStyle = {
-    backgroundColor: isMobile ? 'rgba(229, 62, 62, 0.9)' : undefined, // More opaque
+    backgroundColor: isMobile ? '#e53e3e' : undefined, // Fully opaque
     border: isMobile ? '1px solid rgba(255, 255, 255, 0.4)' : undefined // More visible border
   };
 
