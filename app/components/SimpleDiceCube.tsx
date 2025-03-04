@@ -293,15 +293,18 @@ export default function SimpleDiceCube() {
     return activeButton >= 0 ? activeButton : currentFace;
   };
 
-  // Update the styles for mobile to be fully opaque
+  // Update the styles for mobile to be completely solid
   const faceStyle = {
     transform: (transformValue: string) => `${transformValue}`,
-    backgroundColor: isMobile ? '#e53e3e' : undefined // Fully opaque
+    backgroundColor: isMobile ? '#e53e3e' : undefined, // Solid color
+    opacity: isMobile ? 1 : undefined, // Force full opacity
+    boxShadow: isMobile ? 'inset 0 0 40px rgba(0, 0, 0, 0.4), 0 10px 30px rgba(0, 0, 0, 0.4)' : undefined // Stronger shadow
   };
 
   const contentStyle = {
-    backgroundColor: isMobile ? '#e53e3e' : undefined, // Fully opaque
-    border: isMobile ? '1px solid rgba(255, 255, 255, 0.4)' : undefined // More visible border
+    backgroundColor: isMobile ? '#e53e3e' : undefined, // Solid color
+    border: isMobile ? '1px solid rgba(255, 255, 255, 0.6)' : undefined, // More visible border
+    boxShadow: isMobile ? '0 4px 12px rgba(0, 0, 0, 0.25)' : undefined // Stronger shadow
   };
 
   return (
@@ -332,7 +335,9 @@ export default function SimpleDiceCube() {
               className="dice-face dice-red" 
               style={{ 
                 transform: faceStyle.transform(`translateZ(${cubeSize}px)`),
-                backgroundColor: faceStyle.backgroundColor
+                backgroundColor: faceStyle.backgroundColor,
+                opacity: faceStyle.opacity,
+                boxShadow: faceStyle.boxShadow
               }}
             >
               {renderDots(1)}
